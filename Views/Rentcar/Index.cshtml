@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    @using (Html.BeginForm("Save", "rentcar", FormMethod.Post, new { id = "popupForm" }))
+    {
+        <div>
+            <h2> Car Rent </h2>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label"> Car Number</label>
+            <select class="form-control" id="CarNum" name="CarNum" placeholder="Car Number" required>
+                <option> PLEASE SELECT !!! </option>
+            </select>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label class="form-label">Customer Id</label>
+            <input type="text" id="CusId" name="CusId" class="form-control" placeholder="Customer Id" required>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label">Customer Name</label>
+            <input type="text" id="CusName" name="CusName" class="form-control" placeholder="Customer Name" required>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label">Rental Fee</label>
+            <input type="text" id="Fee" name="Fee" class="form-control" placeholder="Rental Fee" required>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label">Start Date</label>
+            <input type="date" id="Sdate" name="Sdate" class="form-control" placeholder="Pickup date" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">End Date</label>
+            <input type="date" id="Edate" name="Edate" class="form-control" placeholder="Drop date" required>
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-success" />
+        </div>
+
+
+    }
+
+</div>
+
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+
+    <script>
+        getCar();
+
+        //load();
+
+        //function load() {
+        //    $("#CusId").attr("disabled", "disabled");
+        //    $("#CusName").attr("disabled", "disabled");
+        //    $("#Fee").attr("disabled", "disabled");
+        //    $("#Sdate").attr("disabled", "disabled");
+        //    $("#Edate").attr("disabled", "disabled");
+
+        //}
+
+
+
+
+        function getCar() {
+            $.ajax({
+
+                type: 'GET',
+                url: '/Rentcar/Getcar',
+                    dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+
+                    for (var i = 0; i < data.length; i++) {
+                        $("#CarNum").append($("<option/>", {
+                            text: data[i].CarNum
+
+                        }));
+                    }
+
+                }
+
+            });
+        }
+
+        $("#CarNum").change(function () {
+
+            available();
+        });
+
+        function available() {
+
+            $.ajax({
+
+                type: 'POST',
+                url: '/Rentcar/Getavailability?Carnumber=' + $("#CarNum").val(),
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data)
+
+                    var aval = data;
+
+                    if (aval == "YES") {
+                        //$("#CusId").removeAttr("disabled");
+                        //$("#CusName").removeAttr("disabled");
+                        //$("#Fee").removeAttr("disabled");
+                        //$("#Sdate").removeAttr("disabled");
+                        //$("#Edate").removeAttr("disabled");
+                    }
+
+                    //else {
+                    //    //$("#CusId").attr("disabled", "disabled");
+                    //    //$("#CusName").attr("disabled", "disabled");
+                    //    //$("#Fee").attr("disabled", "disabled");
+                    //    //$("#Sdate").attr("disabled", "disabled");
+                    //    //$("#Edate").attr("disabled", "disabled");
+
+                    //}
+
+
+
+
+                }
+
+            });
+
+        }
+
+
+
+
+
+        getCustomer();
+
+        function getCustomer() {
+
+            $("#CusId").keyup(function (e) {
+
+               
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '/Rentcar/Getid?id=' + $("#CusId").val(),
+                        dataType: 'JSON',
+                        success: function (data) {
+                            console.log(data);
+
+                            $("#CusName").val(data)
+
+
+
+                        }
+                          
+                    });
+                return true;    
+
+                        
+
+
+            });
+
+
+
+
+        }
+
+ 
+
+
+    </script>
+
+
+}
