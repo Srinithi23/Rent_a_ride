@@ -1,0 +1,208 @@
+﻿@*@model Rent_a_ride.Register
+          @{
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <p style="font-size:medium"> Register</p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Register</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Userpassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Userpassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Userpassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.role, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.role, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.role, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div id="errorMessage">
+            @ViewBag.ErrorMessage
+        </div>
+
+
+
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Registered ??? Login Now", "Login","UserRegister")
+    </div>
+*@
+
+
+
+
+@*
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+*@
+@*<h2>Index</h2>*@
+
+
+@*@{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+*@
+@*<h2>Rent_a_Ride</h2>
+*@
+
+
+
+@{
+    Layout = "~/Views/Shared/PartialView.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="registerBox">
+        <h2 (id="heading" )>Register</h2>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <style>
+            #submitButton {
+                border: none;
+                outline: none;
+                height: 40px;
+                background-color: grey;
+                color: whitesmoke;
+                font-size: 15px;
+                border-radius: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                border: 1px solid whitesmoke;
+                width: 100%;
+            }
+
+                #submitButton:hover {
+                    cursor: pointer;
+                    background-color: dodgerblue;
+                }
+
+            .box {
+                background-color: lightgrey;
+                width: 300px;
+                border: 5px black;
+                padding: 50px;
+                margin: 20px;
+            }
+        </style>
+
+        <center>
+            <div class="box">
+                <div class="form-group">
+
+
+                    <div class="form-group">
+                        <label class="form-label">UserID</label>
+                        <input type="text" id="UserId" name="UserId" class="form-control" placeholder="Enter UserId" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" id="Username" name="Username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="text" id="Password" name="Password" class="form-control" placeholder="Enter password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Role</label>
+                        <input type="text" id="Role" name="Role" class="form-control" placeholder="Admin or Customer ???" required>
+                    </div>
+                    <br />
+                    <div id="navlink">
+                        @Html.ActionLink("Already Registered ? LogIn", "Login", "UserRegister")
+                    </div>
+                </div>
+
+                <center>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Register" class="btn btn-default" id="submitButton" />
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </center>
+        <br />
+
+        @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Register" class="btn btn-default" id="submitButton"/>
+                </div>
+            </div>*@
+        @*   <center>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Register" class="btn btn-default" id="submitButton" />
+                    </div>
+                </div>
+            </center>*@
+    </div>
+
+    @*  <br />
+        <div id="navlink">
+            @Html.ActionLink("Already Registered ? LogIn", "Login", "LoginEmployee")
+        </div>*@
+    <br />
+    <div id="errorMessage">
+        @ViewBag.Messageone
+        @ViewBag.after
+    </div>
+
+}
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

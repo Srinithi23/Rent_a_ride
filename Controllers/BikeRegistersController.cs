@@ -15,6 +15,7 @@ namespace Rent_a_ride.Controllers
         private RentaRidedbEntities2 db = new RentaRidedbEntities2();
 
         // GET: BikeRegisters
+       
         public ActionResult Index()
         {
             return View(db.BikeRegisters.ToList());

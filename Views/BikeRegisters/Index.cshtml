@@ -6,8 +6,9 @@
 
 <h2>Index</h2>
 
-@*<p>
-</p>*@
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -40,10 +41,9 @@
             @Html.DisplayFor(modelItem => item.Available)
         </td>
         <td>
-            @Html.ActionLink("Add New Bike", "Create",new { id = item.BikeId }) |
-            @Html.ActionLink("Alter Bike details", "Edit", new { id = item.BikeId }) |
-            @Html.ActionLink("View Bike Details", "Details", new { id = item.BikeId }) |
-            @Html.ActionLink("Remove Bike", "Delete", new { id = item.BikeId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.BikeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BikeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BikeId })
         </td>
     </tr>
 }

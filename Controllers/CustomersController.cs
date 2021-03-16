@@ -21,8 +21,13 @@ namespace Rent_a_ride.Controllers
         }
 
         // GET: Customers/Details/5
+       // [Route("Customer Details")]
         public ActionResult Details(int? id)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login", "UserRegister");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -36,6 +41,8 @@ namespace Rent_a_ride.Controllers
         }
 
         // GET: Customers/Create
+        //[Route("Add Customers")]
+
         public ActionResult Create()
         {
             return View();
@@ -48,6 +55,11 @@ namespace Rent_a_ride.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerId,CustomerName,CustomerAddress,Mobilenumber,LicenceNumber")] Customer customer)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Customers.Add(customer);
@@ -59,8 +71,14 @@ namespace Rent_a_ride.Controllers
         }
 
         // GET: Customers/Edit/5
+        //[Route("Edit Customer")]
+
         public ActionResult Edit(int? id)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,8 +96,14 @@ namespace Rent_a_ride.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Customer Details update")]
+
         public ActionResult Edit([Bind(Include = "CustomerId,CustomerName,CustomerAddress,Mobilenumber,LicenceNumber")] Customer customer)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(customer).State = EntityState.Modified;
@@ -90,8 +114,13 @@ namespace Rent_a_ride.Controllers
         }
 
         // GET: Customers/Delete/5
+        
         public ActionResult Delete(int? id)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +138,10 @@ namespace Rent_a_ride.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             Customer customer = db.Customers.Find(id);
             db.Customers.Remove(customer);
             db.SaveChanges();

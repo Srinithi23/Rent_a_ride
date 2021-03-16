@@ -25,10 +25,13 @@ namespace Rent_a_ride
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<CarRegister> CarRegisters { get; set; }
         public virtual DbSet<BikeRegister> BikeRegisters { get; set; }
+        public virtual DbSet<CarRegister> CarRegisters { get; set; }
         public virtual DbSet<CarRent> CarRents { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Dropbike> Dropbikes { get; set; }
+        public virtual DbSet<Dropcar> Dropcars { get; set; }
         public virtual DbSet<BikeRent> BikeRents { get; set; }
+        public virtual DbSet<Register> Registers { get; set; }
     }
 }

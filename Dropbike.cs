@@ -12,13 +12,13 @@ namespace Rent_a_ride
     using System;
     using System.Collections.Generic;
     
-    public partial class BikeRent
+    public partial class Dropbike
     {
         public int Id { get; set; }
-        public string BikeId { get; set; }
+        public string BikeNumber { get; set; }
         public string CustomerId { get; set; }
-        public Nullable<int> Fee { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<System.DateTime> RDate { get; set; }
+        public Nullable<int> Elsp { get; set; }
+        public Nullable<int> fine { get; set; }
     }
 }

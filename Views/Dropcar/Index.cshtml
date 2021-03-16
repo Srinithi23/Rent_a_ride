@@ -1,0 +1,132 @@
+﻿
+<h2> Drop car Index</h2>
+
+<div class="row">
+    <div class="col-sm-4">
+
+        @using (Html.BeginForm("Droppedcar", "Dropcar", FormMethod.Post, new { id = "popupForm" }))
+        {
+            <div>
+                <h2> Car Rent </h2>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"> Car Number</label>
+                <input type="text" id="CarNumber" name="CarNumber" class="form-control" placeholder="Enter Your Car Number" required>
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label class="form-label">Customer Id</label>
+                <input type="text" id="CustomerId" name="CustomerId" class="form-control" placeholder="Customer Id" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="text" id="RDate" name="RDate" class="form-control" placeholder="Last Date" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Days elapsed</label>
+                <input type="text" id="Elsp" name="Elsp" class="form-control" placeholder="Added days" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Fine</label>
+                <input type="text" id="fine" name="fine" class="form-control" placeholder="Pickup date" required>
+            </div>
+
+
+
+            @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" id="submitButton" />
+                </div>
+            </div>*@
+
+
+            <div class="form-group">
+                <input type="submit" value="ReturnCar" class="btn btn-success" />
+            </div>
+
+         }
+    </div>
+
+</div>
+
+
+
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+
+
+
+    <script>
+
+
+        getCarid();
+
+        function getCarid()
+        {
+            $("#CarNumber").keyup(function (e) {
+                $.ajax({
+
+                    type: 'POST',
+                    url: '/Dropcar/Getid?CarNumber=' + $("#CarNumber").val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+
+                        console.log(data)
+                            
+                        $('#CustomerId').val(data[0].Cusid);
+                        //$('#RDate').val(new Date(parseInt(data[0].End_Date.substr(6))).toLocaleDateString());
+                        $('#RDate').val(new Date(parseInt(data[0].End_Date.substr(6))).toLocaleDateString());
+
+                        $('#Elsp').val(data[0].ElapsedDays);
+
+
+                        var Elsp = data[0].ElapsedDays;
+
+                        if (Elsp > 0)
+                        {
+                            var fine = Elsp * 500;
+                           $('#fine').val(fine.toString());
+
+                        }
+                        else
+                        {
+                            $('#fine').val("0");
+
+
+                        }
+
+
+
+                    }
+
+
+
+                });
+            });
+        }
+
+
+
+    </script>
+}
+
+
+
+

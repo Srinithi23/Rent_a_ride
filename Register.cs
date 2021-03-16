@@ -12,14 +12,26 @@ namespace Rent_a_ride
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
-    public partial class BikeRegister
+    public partial class Register
     {
-        public int BikeId { get; set; }
         [Required]
-        public string BikeNum { get; set; }
-        public string Brand { get; set; }
-        public string Model { get; set; }
-        public string Available { get; set; }
+        public string UserID { get; set; }
+        [Required]
+
+        [RemoteAttribute("IsUserExsists", "Customer", ErrorMessage = "User Name exist.... Choose some other name.")]
+
+        public string Username { get; set; }
+        [Required]
+
+
+        public string Userpassword { get; set; }
+        [DataType(DataType.Password)]
+       
+
+        public string role { get; set; }
+        
+
     }
 }

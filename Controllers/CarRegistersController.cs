@@ -17,17 +17,26 @@ namespace Rent_a_ride.Controllers
         // GET: CarRegisters
         public ActionResult Index()
         {
+
             return View(db.CarRegisters.ToList());
         }
 
         // GET: CarRegisters/Details/5
         public ActionResult Details(int? id)
         {
+
+
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            //Session["UserID"] = u.UserID;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CarRegister carRegister = db.CarRegisters.Find(id);
+               CarRegister carRegister = db.CarRegisters.Find(id);
             if (carRegister == null)
             {
                 return HttpNotFound();
@@ -38,6 +47,7 @@ namespace Rent_a_ride.Controllers
         // GET: CarRegisters/Create
         public ActionResult Create()
         {
+           
             return View();
         }
 
@@ -48,6 +58,10 @@ namespace Rent_a_ride.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CarId,CarNum,Brand,Model,Available")] CarRegister carRegister)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (ModelState.IsValid)
             {
                 db.CarRegisters.Add(carRegister);
@@ -61,6 +75,14 @@ namespace Rent_a_ride.Controllers
         // GET: CarRegisters/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +102,10 @@ namespace Rent_a_ride.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CarId,CarNum,Brand,Model,Available")] CarRegister carRegister)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(carRegister).State = EntityState.Modified;
@@ -92,6 +118,10 @@ namespace Rent_a_ride.Controllers
         // GET: CarRegisters/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +139,10 @@ namespace Rent_a_ride.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
             CarRegister carRegister = db.CarRegisters.Find(id);
             db.CarRegisters.Remove(carRegister);
             db.SaveChanges();
@@ -117,6 +151,7 @@ namespace Rent_a_ride.Controllers
 
         protected override void Dispose(bool disposing)
         {
+           
             if (disposing)
             {
                 db.Dispose();

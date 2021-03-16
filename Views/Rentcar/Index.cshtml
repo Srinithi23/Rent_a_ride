@@ -1,104 +1,148 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿ @model IEnumerable<Rent_a_ride.Models.RentViewModel>
 
-<h2>Index</h2>
+
+@*<h6>Checkbox unavailable ??? oops !!! (Vehicle is not available)Select another vehicle.</h6>*@
 
 <div class="row">
-    @using (Html.BeginForm("Save", "rentcar", FormMethod.Post, new { id = "popupForm" }))
-    {
-        <div>
-            <h2> Car Rent </h2>
-        </div>
+    <div class="col-sm-4">
+
+        @using (Html.BeginForm("Save", "Rentcar", FormMethod.Post, new { id = "popupForm" }))
+        {
+            <div>
+                <h2> Car Rent </h2>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"> Car Number</label>
+                <select class="form-control" id="CarId" name="CarId" placeholder="Car Number" required>
+                    <option> Select your Four Wheeler !!! </option>
+                </select>
+            </div>
 
 
-        <div class="form-group">
-            <label class="form-label"> Car Number</label>
-            <select class="form-control" id="CarNum" name="CarNum" placeholder="Car Number" required>
-                <option> Select your car !!! </option>
-            </select>
-        </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Customer Id</label>
+                <input type="text" id="CustomerId" name="CustomerId" class="form-control" placeholder="Customer Id" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Customer Name</label>
+                <input type="text" id="CustomerName" name="CustomerName" class="form-control" placeholder="Customer Name" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Rental Fee</label>
+                <input type="text" id="Fee" name="Fee" class="form-control" placeholder="Rental Fee" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Start Date</label>
+                <input type="date" id="StartDate" name="StartDate" class="form-control" placeholder="Pickup date" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">End Date</label>
+                <input type="date" id="EndDate" name="EndDate" class="form-control" placeholder="Drop date" required>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+
+
+
+        }
+
+    </div>
+</div>
+
+<div class="col-sm-8">
+
+    <table class="table">
+
+        <tr>
+            <th>CarNum</th>
+            <th>CustomerId</th>
+            <th>Fee</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Available</th>
+
+        </tr>
+
+
+        @foreach(var item in Model)
+        {
+    <tr>
+        <td>@item.CarId</td>
+        <td>@item.CustomerId</td>
+
+        <td>@item.Fee</td>
+
+        <td>@item.StartDate</td>
+        <td>@item.EndDate</td>
+        <td>@item.Available</td>
+
+
+
+    </tr>
+        }
+
+
+    </table>
 
 
 
 
-        <div class="form-group">
-            <label class="form-label">Customer Id</label>
-            <input type="text" id="CusId" name="CusId" class="form-control" placeholder="Customer Id" required>
-        </div>
 
 
-        <div class="form-group">
-            <label class="form-label">Customer Name</label>
-            <input type="text" id="CusName" name="CusName" class="form-control" placeholder="Customer Name" required>
-        </div>
-
-
-        <div class="form-group">
-            <label class="form-label">Rental Fee</label>
-            <input type="text" id="Fee" name="Fee" class="form-control" placeholder="Rental Fee" required>
-        </div>
-
-
-        <div class="form-group">
-            <label class="form-label">Start Date</label>
-            <input type="date" id="Sdate" name="Sdate" class="form-control" placeholder="Pickup date" required>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">End Date</label>
-            <input type="date" id="Edate" name="Edate" class="form-control" placeholder="Drop date" required>
-        </div>
-
-
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-success" />
-        </div>
-
-
-    }
 
 </div>
 
 
-
-
-@section scripts
+    @section scripts
 {
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
 
-    <script>
-        getCar();
 
-        load();
 
-            function load() {
-            $("#CusId").attr("disabled", "disabled");
-            $("#CusName").attr("disabled", "disabled");
+
+        <script>
+
+
+        getcar();
+        @*load();*@
+
+        function load() {
+            $("#CustomerId").attr("disabled", "disabled");
+            $("#CustomerName").attr("disabled", "disabled");
             $("#Fee").attr("disabled", "disabled");
-            $("#Sdate").attr("disabled", "disabled");
-            $("#Edate").attr("disabled", "disabled");
+            $("#StartDate").attr("disabled", "disabled");
+            $("#EndDate").attr("disabled", "disabled");
 
         }
-            
 
-
-
-        function getCar() {
+        function getcar() {
             $.ajax({
 
                 type: 'GET',
                 url: '/Rentcar/Getcar',
-                    dataType: 'JSON',
+                dataType: 'JSON',
                 success: function (data) {
                     console.log(data);
 
-                    for (var i = 0; i < data.length; i++) {
-                        $("#CarNum").append($("<option/>", {
-                            text: data[i].CarNum
+
+                    for (var j = 0; j < data.length; j++) {
+                        $("#CarId").append($("<option/>", {
+                            text: data[j].CarNum
 
                         }));
                     }
@@ -106,22 +150,19 @@
                 }
 
             });
-          
+
         }
 
-        $("#CarNum").change(function()
-        {
 
-                available();
-            });
+        $("#CarId").change(function () {
 
-        function available()
-        {
+            Available();
+        });
 
+        function Available() {
             $.ajax({
-
                 type: 'POST',
-                url: '/Rentcar/Getavailability?CarNum=' + $("#CarNum").val(),
+                url: '/Rentcar/Getavil?CarNum=' + $("#CarId").val(),
                 dataType: 'JSON',
                 success: function (data) {
                     console.log(data)
@@ -129,73 +170,52 @@
                     var aval = data;
 
                     if (aval == "yes") {
-                        $("#CusId").removeAttr("disabled");
-                        $("#CusName").removeAttr("disabled");
-                        $("#Fee").removeAttr("disabled");
-                        $("#Sdate").removeAttr("disabled");
-                        $("#Edate").removeAttr("disabled");
-                    }
 
+                        $("#CustomerId").removeAttr('disabled');
+                        $("#CustomerName").removeAttr('disabled');
+                        $("#Fee").removeAttr('disabled');
+                        $("#StartDate").removeAttr('disabled');
+                        $("#EndDate").removeAttr('disabled');
+                    }
                     else {
-                        $("#CusId").attr("disabled", "disabled");
-                        $("#CusName").attr("disabled", "disabled");
+                        $("#CustomerId").attr("disabled", "disabled");
+                        $("#CustomerName").attr("disabled", "disabled");
                         $("#Fee").attr("disabled", "disabled");
-                        $("#Sdate").attr("disabled", "disabled");
-                        $("#Edate").attr("disabled", "disabled");
-
+                        $("#StartDate").attr("disabled", "disabled");
+                        $("#EndDate").attr("disabled", "disabled");
                     }
-
-
-
 
                 }
 
+
+
             });
 
         }
-
-
-
-
 
         getCustomer();
-
         function getCustomer() {
+            $("#CustomerId").keyup(function (e) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Rentcar/Getid?id=' + $("#CustomerId").val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $("#CustomerName").val(data)
 
-            $("#CusId").keyup(function (e) {
-
-               
-                    $.ajax({
-
-                        type: 'POST',
-                        url: '/Rentcar/Getid?id=' + $("#CusId").val(),
-                        dataType: 'JSON',
-                        success: function (data) {
-                            console.log(data);
-
-                            $("#CusName").val(data)
+                    }
 
 
 
-                        }
-                          
-                    });
-                return true;    
-
-                        
-
-
+                });
             });
-
-
-
-
         }
 
- 
 
 
-    </script>
 
 
-}
+
+
+        </script>
+    }

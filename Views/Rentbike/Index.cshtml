@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Bike Index</h2>
+
+@*<h6>Checkbox unavailable ??? oops !!! (Vehicle is not available)Select another vehicle.</h6>*@
+
+<div class="row">
+    
+        @using (Html.BeginForm("Save", "Rentbike", FormMethod.Post, new { id = "popupForm" }))
+        {
+            <div>
+                <h2> Bike Rent </h2>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label"> Bike Number</label>
+                <select class="form-control" id="BikeId" name="BikeId" placeholder="Bike Number" required>
+                    <option> Select your Two Wheeler !!! </option>
+                </select>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label class="form-label">Customer Id</label>
+                <input type="text" id="CustomerId" name="CustomerId" class="form-control" placeholder="Customer Id" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Customer Name</label>
+                <input type="text" id="CustomerName" name="CustomerName" class="form-control" placeholder="Customer Name" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Rental Fee</label>
+                <input type="text" id="Fee" name="Fee" class="form-control" placeholder="Rental Fee" required>
+            </div>
+
+
+            <div class="form-group">
+                <label class="form-label">Start Date</label>
+                <input type="date" id="StartDate" name="StartDate" class="form-control" placeholder="Pickup date" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">End Date</label>
+                <input type="date" id="EndDate" name="EndDate" class="form-control" placeholder="Drop date" required>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+
+
+
+         }
+    </div>
+
+    
+
+
+    @section scripts
+{
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+
+
+
+
+        <script>
+
+
+            getbike();
+
+            function load() {
+                $("#CustomerId").attr("disabled", "disabled");
+                $("#CustomerName").attr("disabled", "disabled");
+                $("#Fee").attr("disabled", "disabled");
+                $("#StartDate").attr("disabled", "disabled");
+                $("#EndDate").attr("disabled", "disabled");
+
+            }
+
+            function getbike() {
+                $.ajax({
+
+                    type: 'GET',
+                    url: '/Rentbike/Getbike',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data);
+
+
+                        for (var j = 0; j < data.length; j++) {
+                            $("#BikeId").append($("<option/>", {
+                                text: data[j].BikeNum
+
+                            }));
+                        }
+
+                    }
+
+                });
+
+            }
+
+
+            $("#BikeId").change(function () {
+
+                Available();
+            });
+
+            function Available() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Rentbike/Getavil?BikeNum=' + $("#BikeId").val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data)
+
+                        var aval = data;
+
+                        if (aval == "yes") {
+
+                            $("#CustomerId").removeAttr('disabled');
+                            $("#CustomerName").removeAttr('disabled');
+                            $("#Fee").removeAttr('disabled');
+                            $("#StartDate").removeAttr('disabled');
+                            $("#EndDate").removeAttr('disabled');
+                        }
+                        else {
+                            $("#CustomerId").attr("disabled", "disabled");
+                            $("#CustomerName").attr("disabled", "disabled");
+                            $("#Fee").attr("disabled", "disabled");
+                            $("#StartDate").attr("disabled", "disabled");
+                            $("#EndDate").attr("disabled", "disabled");
+                        }
+
+                    }
+
+
+
+                });
+
+            }
+
+            getCustomer();
+                    function getCustomer() {
+                        $("#CustomerId").keyup(function (e) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Rentbike/Getid?id=' + $("#CustomerId").val(),
+                                dataType: 'JSON',
+                                success: function (data) {
+                                    $("#CustomerName").val(data)
+
+                                }
+
+
+
+                            });
+                        });
+                    }
+
+
+
+
+
+
+
+        </script>
+    }

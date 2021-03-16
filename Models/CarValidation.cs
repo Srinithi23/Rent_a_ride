@@ -12,8 +12,10 @@ namespace Rent_a_ride.Models
     {
         public class CarRegisterpartial
         {
-            [DisplayName("Car Number")]
+            [Display(Name="Car Number")]
+            [Required]
             public string CarNum { get; set; }
+          
 
             public string Brand { get; set; }
             public string Model { get; set; }

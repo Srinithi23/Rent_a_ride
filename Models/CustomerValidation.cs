@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Rent_a_ride.Models
 {
@@ -13,8 +14,10 @@ namespace Rent_a_ride.Models
     {
         public class customerpartial
         {
+            [Required]
+            [RemoteAttribute("IsUserExsists", "Customer",ErrorMessage = "User Name exist.... Choose some other name.")]
             public string CustomerName { get; set; }
-            [DisplayName("Address of Customer")]
+            [Display(Name="Address of Customer")]
             public string CustomerAddress { get; set; }
             public Nullable<int> Mobilenumber { get; set; }
             public Nullable<int> LicenceNumber { get; set; }
