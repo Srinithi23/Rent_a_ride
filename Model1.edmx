@@ -15,6 +15,16 @@
           <Property Name="Model" Type="varchar" MaxLength="20" />
           <Property Name="Available" Type="varchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="BikeRent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="BikeId" Type="varchar" MaxLength="20" />
+          <Property Name="CustomerId" Type="varchar" MaxLength="20" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
         <EntityType Name="CarRegister">
           <Key>
             <PropertyRef Name="CarId" />
@@ -47,6 +57,7 @@
         </EntityType>
         <EntityContainer Name="RentaRidedbModelStoreContainer">
           <EntitySet Name="BikeRegister" EntityType="Self.BikeRegister" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BikeRent" EntityType="Self.BikeRent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarRegister" EntityType="Self.CarRegister" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarRent" EntityType="Self.CarRent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -70,6 +81,7 @@
           <EntitySet Name="CarRegisters" EntityType="RentaRidedbModel.CarRegister" />
           <EntitySet Name="BikeRegisters" EntityType="RentaRidedbModel.BikeRegister" />
           <EntitySet Name="CarRents" EntityType="RentaRidedbModel.CarRent" />
+          <EntitySet Name="BikeRents" EntityType="RentaRidedbModel.BikeRent" />
         </EntityContainer>
         <EntityType Name="CarRegister">
           <Key>
@@ -97,6 +109,16 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="CarId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="BikeRent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="BikeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CustomerId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="StartDate" Type="DateTime" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
@@ -147,6 +169,17 @@
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BikeRents">
+            <EntityTypeMapping TypeName="RentaRidedbModel.BikeRent">
+              <MappingFragment StoreEntitySet="BikeRent">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BikeId" ColumnName="BikeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

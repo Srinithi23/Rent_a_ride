@@ -16,7 +16,7 @@
         <div class="form-group">
             <label class="form-label"> Car Number</label>
             <select class="form-control" id="CarNum" name="CarNum" placeholder="Car Number" required>
-                <option> PLEASE SELECT !!! </option>
+                <option> Select your car !!! </option>
             </select>
         </div>
 
@@ -73,17 +73,17 @@
     <script>
         getCar();
 
-        //load();
+        load();
 
-        //function load() {
-        //    $("#CusId").attr("disabled", "disabled");
-        //    $("#CusName").attr("disabled", "disabled");
-        //    $("#Fee").attr("disabled", "disabled");
-        //    $("#Sdate").attr("disabled", "disabled");
-        //    $("#Edate").attr("disabled", "disabled");
+            function load() {
+            $("#CusId").attr("disabled", "disabled");
+            $("#CusName").attr("disabled", "disabled");
+            $("#Fee").attr("disabled", "disabled");
+            $("#Sdate").attr("disabled", "disabled");
+            $("#Edate").attr("disabled", "disabled");
 
-        //}
-
+        }
+            
 
 
 
@@ -106,41 +106,44 @@
                 }
 
             });
+          
         }
 
-        $("#CarNum").change(function () {
+        $("#CarNum").change(function()
+        {
 
-            available();
-        });
+                available();
+            });
 
-        function available() {
+        function available()
+        {
 
             $.ajax({
 
                 type: 'POST',
-                url: '/Rentcar/Getavailability?Carnumber=' + $("#CarNum").val(),
+                url: '/Rentcar/Getavailability?CarNum=' + $("#CarNum").val(),
                 dataType: 'JSON',
                 success: function (data) {
                     console.log(data)
 
                     var aval = data;
 
-                    if (aval == "YES") {
-                        //$("#CusId").removeAttr("disabled");
-                        //$("#CusName").removeAttr("disabled");
-                        //$("#Fee").removeAttr("disabled");
-                        //$("#Sdate").removeAttr("disabled");
-                        //$("#Edate").removeAttr("disabled");
+                    if (aval == "yes") {
+                        $("#CusId").removeAttr("disabled");
+                        $("#CusName").removeAttr("disabled");
+                        $("#Fee").removeAttr("disabled");
+                        $("#Sdate").removeAttr("disabled");
+                        $("#Edate").removeAttr("disabled");
                     }
 
-                    //else {
-                    //    //$("#CusId").attr("disabled", "disabled");
-                    //    //$("#CusName").attr("disabled", "disabled");
-                    //    //$("#Fee").attr("disabled", "disabled");
-                    //    //$("#Sdate").attr("disabled", "disabled");
-                    //    //$("#Edate").attr("disabled", "disabled");
+                    else {
+                        $("#CusId").attr("disabled", "disabled");
+                        $("#CusName").attr("disabled", "disabled");
+                        $("#Fee").attr("disabled", "disabled");
+                        $("#Sdate").attr("disabled", "disabled");
+                        $("#Edate").attr("disabled", "disabled");
 
-                    //}
+                    }
 
 
 

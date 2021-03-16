@@ -5,10 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ea15920487c54c808ca8ecca92b36103" Name="Diagram1">
-        <EntityTypeShape EntityType="RentaRidedbModel.Customer" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentaRidedbModel.CarRegister" Width="1.5" PointX="0.875" PointY="1.25" />
-        <EntityTypeShape EntityType="RentaRidedbModel.BikeRegister" Width="1.5" PointX="5" PointY="0.875" />
-        <EntityTypeShape EntityType="RentaRidedbModel.CarRent" Width="1.5" PointX="7.25" PointY="1.5" />
+        <EntityTypeShape EntityType="RentaRidedbModel.Customer" Width="1.5" PointX="0.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentaRidedbModel.CarRegister" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="RentaRidedbModel.BikeRegister" Width="1.5" PointX="2.625" PointY="0.5" />
+        <EntityTypeShape EntityType="RentaRidedbModel.CarRent" Width="1.5" PointX="4.75" PointY="0.5" />
+        <EntityTypeShape EntityType="RentaRidedbModel.BikeRent" Width="1.5" PointX="4.75" PointY="3.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

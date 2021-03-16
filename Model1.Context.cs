@@ -29,5 +29,6 @@ namespace Rent_a_ride
         public virtual DbSet<CarRegister> CarRegisters { get; set; }
         public virtual DbSet<BikeRegister> BikeRegisters { get; set; }
         public virtual DbSet<CarRent> CarRents { get; set; }
+        public virtual DbSet<BikeRent> BikeRents { get; set; }
     }
 }
